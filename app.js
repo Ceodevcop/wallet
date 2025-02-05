@@ -9,6 +9,21 @@ function generateAuthToken() {
     return `Basic ${token}`;
 }
 
+// Function to display messages
+function showMessage(elementId, text, type = "info") {
+    const messageDiv = document.getElementById(elementId);
+    if (messageDiv) {
+        messageDiv.textContent = text;
+        messageDiv.className = `message ${type === 'error' ? 'error' : 'success'}`;
+
+        // Clear message after 5 seconds
+        setTimeout(() => {
+            messageDiv.textContent = '';
+            messageDiv.className = 'message';
+        }, 5000);
+    }
+}
+
 // Function to create a wallet
 async function createWallet(walletData) {
     const authToken = generateAuthToken();
@@ -63,15 +78,123 @@ async function debitWallet(debitData) {
     }
 }
 
-// Function to display messages
-function showMessage(elementId, text, type = "info") {
-    const messageDiv = document.getElementById(elementId);
-    messageDiv.textContent = text;
-    messageDiv.className = `message ${type === 'error' ? 'error' : 'success'}`;
+// Login Functionality
+function handleLogin() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    // Clear message after 5 seconds
-    setTimeout(() => {
-        messageDiv.textContent = '';
-        messageDiv.className = 'message';
-    }, 5000);
+    // Simulate login (replace with actual authentication logic)
+    if (email === "admin@dexa.com" && password === "admin123") {
+        window.location.href = "admin.html"; // Redirect to Admin Page
+    } else if (email === "user@dexa.com" && password === "user123") {
+        window.location.href = "account-details.html"; // Redirect to Account Details Page
+    } else {
+        showMessage('message', 'Invalid email or password', 'error');
+    }
 }
+
+// Admin Actions
+function editAccount(accountNumber) {
+    alert(`Edit account: ${accountNumber}`);
+    // Add logic to edit account
+}
+
+function deleteAccount(accountNumber) {
+    if (confirm(`Are you sure you want to delete account: ${accountNumber}?`)) {
+        alert(`Deleted account: ${accountNumber}`);
+        // Add logic to delete account
+    }
+}
+
+// Account Actions
+function handleTransfer() {
+    const recipientAccount = document.getElementById('recipientAccount').value;
+    const amount = document.getElementById('amount').value;
+
+    const debitData = {
+        amount: parseFloat(amount),
+        reference: `ref_${Date.now()}`,
+        narration: "Wallet Debit",
+        destinationBankCode: "058", // Replace with recipient's bank code
+        destinationAccountNumber: recipientAccount,
+        currency: "NGN",
+        sourceAccountNumber: "8193648995" // Replace with the wallet account number
+    };
+
+    debitWallet(debitData)
+        .then(response => {
+            showMessage('message', `Transfer successful! Transaction Reference: ${response.transactionReference}`, "success");
+        })
+        .catch(error => {
+            showMessage('message', `Error transferring funds: ${error.message}`, "error");
+        });
+}
+
+function handleWithdraw() {
+    const amount = document.getElementById('amount').value;
+
+    alert(`Withdraw ₦${amount}`);
+    // Add logic to handle withdrawal
+}
+
+function handleInvest() {
+    const amount = document.getElementById('amount').value;
+
+    alert(`Invest ₦${amount}`);
+    // Add logic to handle investment
+}
+
+function handleSwap() {
+    const amount = document.getElementById('amount').value;
+
+    alert(`Swap ₦${amount}`);
+    // Add logic to handle swap
+}
+
+// Attach event listeners
+document.addEventListener('DOMContentLoaded', function () {
+    // Login Form
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            handleLogin();
+        });
+    }
+
+    // Transfer Form
+    const transferForm = document.getElementById('transferForm');
+    if (transferForm) {
+        transferForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            handleTransfer();
+        });
+    }
+
+    // Withdraw Form
+    const withdrawForm = document.getElementById('withdrawForm');
+    if (withdrawForm) {
+        withdrawForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            handleWithdraw();
+        });
+    }
+
+    // Invest Form
+    const investForm = document.getElementById('investForm');
+    if (investForm) {
+        investForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            handleInvest();
+        });
+    }
+
+    // Swap Form
+    const swapForm = document.getElementById('swapForm');
+    if (swapForm) {
+        swapForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            handleSwap();
+        });
+    }
+});
