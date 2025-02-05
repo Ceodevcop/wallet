@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - DExAWallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        .account-details {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .account-details p {
+            margin: 10px 0;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .actions button.transfer {
+            background-color: #007BFF;
+            color: white;
+        }
+        .actions button.withdraw {
+            background-color: #28a745;
+            color: white;
+        }
+        .actions button.invest {
+            background-color: #ffc107;
+            color: black;
+        }
+        .actions button.swap {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Account Details - DExAWallet</h1>
+
+    <div class="account-details">
+        <p><strong>Account Number:</strong> 8193648995</p>
+        <p><strong>Email:</strong> johndoe@example.com</p>
+        <p><strong>BVN:</strong> 12345678901</p>
+        <p><strong>Balance:</strong> ₦50,000</p>
+    </div>
+
+    <div class="actions">
+        <button class="transfer" onclick="window.location.href='transfer.html'">Transfer</button>
+        <button class="withdraw" onclick="window.location.href='withdraw.html'">Withdraw</button>
+        <button class="invest" onclick="window.location.href='invest.html'">Invest</button>
+        <button class="swap" onclick="window.location.href='swap.html'">Swap</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
