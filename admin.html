@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - DExAWallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        .accounts-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .account-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .account-item h3 {
+            margin: 0;
+        }
+        .account-item p {
+            margin: 5px 0;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .actions button.edit {
+            background-color: #28a745;
+            color: white;
+        }
+        .actions button.delete {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard - DExAWallet</h1>
+
+    <div class="accounts-list">
+        <div class="account-item">
+            <h3>John Doe</h3>
+            <p>Account Number: 8193648995</p>
+            <p>Email: johndoe@example.com</p>
+            <p>Balance: ₦50,000</p>
+            <div class="actions">
+                <button class="edit" onclick="editAccount('8193648995')">Edit</button>
+                <button class="delete" onclick="deleteAccount('8193648995')">Delete</button>
+            </div>
+        </div>
+        <!-- Add more account items here -->
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
