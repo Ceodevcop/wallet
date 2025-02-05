@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debit Wallet - DExAWallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input, button {
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Debit Wallet - DExAWallet</h1>
+
+    <form id="debitWalletForm" onsubmit="event.preventDefault(); handleDebitWallet()">
+        <div class="form-group">
+            <input type="text" id="walletAccountNumber" placeholder="Wallet Account Number" required>
+        </div>
+        <div class="form-group">
+            <input type="number" id="amount" placeholder="Amount (in kobo)" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="recipientAccountNumber" placeholder="Recipient Account Number" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="recipientBankCode" placeholder="Recipient Bank Code" required>
+        </div>
+        <button type="submit">Debit Wallet</button>
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <script src="assets/monnify.js"></script>
+    <script>
+        async function handleDebitWallet() {
+            const debitData = {
+                amount: parseFloat(document.getElementById('amount').value),
+                reference: `ref_${Date.now()}`,
+                narration: "Wallet Debit",
+                destinationBankCode: document.getElementById('recipientBankCode').value,
+                destinationAccountNumber: document.getElementById('recipientAccountNumber').value,
+                currency: "NGN",
+                sourceAccountNumber: document.getElementById('walletAccountNumber').value
+            };
+
+            try {
+                const debitResult = await debitWallet(debitData);
+                showMessage('message', `Debit successful! Transaction Reference: ${debitResult.transactionReference}`, "success");
+                console.log("Debit Successful:", debitResult);
+            } catch (error) {
+                showMessage('message', `Error debiting wallet: ${error.message}`, "error");
+            }
+        }
+    </script>
+</body>
+</html>
