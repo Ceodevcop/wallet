@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Wallet - DExAWallet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input, button {
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Create Wallet - DExAWallet</h1>
+
+    <form id="createWalletForm" onsubmit="event.preventDefault(); handleCreateWallet()">
+        <div class="form-group">
+            <input type="text" id="firstName" placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="lastName" placeholder="Last Name" required>
+        </div>
+        <div class="form-group">
+            <input type="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="bvn" placeholder="BVN" required>
+        </div>
+        <div class="form-group">
+            <input type="date" id="dateOfBirth" placeholder="Date of Birth" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="preferredBank" placeholder="Preferred Bank Code (e.g., 058 for GTBank)" required>
+        </div>
+        <button type="submit">Create Wallet</button>
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <script src="assets/monnify.js"></script>
+    <script>
+        async function handleCreateWallet() {
+            const walletData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                bvn: document.getElementById('bvn').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                currency: "NGN",
+                preferredBankCode: document.getElementById('preferredBank').value
+            };
+
+            try {
+                const wallet = await createWallet(walletData);
+                showMessage('message', `Wallet created successfully! Account Number: ${wallet.accountNumber}`, "success");
+                console.log("Wallet Created:", wallet);
+            } catch (error) {
+                showMessage('message', `Error creating wallet: ${error.message}`, "error");
+            }
+        }
+    </script>
+</body>
+              </html>
